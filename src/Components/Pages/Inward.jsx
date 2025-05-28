@@ -52,13 +52,13 @@ const Inward = React.forwardRef((props, ref) => {
 
 
     function fetData() {
-        axios.get('http://localhost:3008/inward')
+        axios.get('https://inventory-api-00rj.onrender.com/inward')
             .then((res) => {
                 setInwardData(res.data);
             })
             .catch(err => console.log(err));
 
-        axios.get('http://localhost:3008/productList')
+        axios.get('https://inventory-api-00rj.onrender.com/productList')
             .then((res) => {
                 setProductListData(res.data)
             })
@@ -70,7 +70,7 @@ const Inward = React.forwardRef((props, ref) => {
 
         try {
 
-            await axios.post('http://localhost:3008/inwardListUp', inwardList);
+            await axios.post('https://inventory-api-00rj.onrender.com/inwardListUp', inwardList);
 
             setInwardList({
                 product_id: '',
@@ -82,7 +82,7 @@ const Inward = React.forwardRef((props, ref) => {
             toast.success('Product Added successfully!');
 
 
-            await axios.put(`http://localhost:3008/inward_listUpdate/${inwardList.product_id}`, inwardList);
+            await axios.put(`https://inventory-api-00rj.onrender.com/inward_listUpdate/${inwardList.product_id}`, inwardList);
 
         } catch (error) {
             console.error('Error:', error);
@@ -94,7 +94,7 @@ const Inward = React.forwardRef((props, ref) => {
         try {
             event.preventDefault();
 
-            const inwardListResponse = await fetch(`http://localhost:3008/inwardList1/${ids.id}`);
+            const inwardListResponse = await fetch(`https://inventory-api-00rj.onrender.com/inwardList1/${ids.id}`);
             const inwardListData = await inwardListResponse.json();
 
             if (
@@ -104,7 +104,7 @@ const Inward = React.forwardRef((props, ref) => {
             ) {
                 toast.info('No changes detected', { /* toast configuration */ });
             } else {
-                await axios.put(`http://localhost:3008/inwardlist/${getProductId}`, getProductList);
+                await axios.put(`https://inventory-api-00rj.onrender.com/inwardlist/${getProductId}`, getProductList);
 
                 setFormTable('Add');
                 setInwardList({ date: '', productName: '', productPrice: '', numProduct: '' });
@@ -115,10 +115,10 @@ const Inward = React.forwardRef((props, ref) => {
 
                 if (inwardListData[0]?.num_product > getProductList.numProduct) {
                     const value = inwardListData[0]?.num_product - getProductList.numProduct;
-                    await axios.put(`http://localhost:3008/outward_listUpdate/${ids.productId}`, { numProduct: value });
+                    await axios.put(`https://inventory-api-00rj.onrender.com/outward_listUpdate/${ids.productId}`, { numProduct: value });
                 } else if (inwardListData[0]?.num_product < getProductList.numProduct) {
                     const value = getProductList.numProduct - inwardListData[0]?.num_product;
-                    await axios.put(`http://localhost:3008/inward_listUpdate/${ids.productId}`, { numProduct: value });
+                    await axios.put(`https://inventory-api-00rj.onrender.com/inward_listUpdate/${ids.productId}`, { numProduct: value });
                 } else {
                     window.alert('The number of products is equal');
                 }
@@ -270,7 +270,7 @@ const Inward = React.forwardRef((props, ref) => {
 
     const updateList = async (id, productId) => {
         try {
-            const response = await fetch(`http://localhost:3008/inwardList1/${id}`);
+            const response = await fetch(`https://inventory-api-00rj.onrender.com/inwardList1/${id}`);
             const data = await response.json();
 
             if (data && data.length > 0) {
@@ -312,20 +312,20 @@ const Inward = React.forwardRef((props, ref) => {
                     icon: "success",
                 });
 
-                const response = await fetch(`http://localhost:3008/inwardList1/${id}`);
+                const response = await fetch(`https://inventory-api-00rj.onrender.com/inwardList1/${id}`);
                 const inwardListData = await response.json();
 
                 if (inwardListData && inwardListData.length > 0) {
                     const updatedStockDelete = { numProduct: inwardListData[0].num_product };
 
-                    await axios.put(`http://localhost:3008/outward_listUpdate/${productId}`, updatedStockDelete);
+                    await axios.put(`https://inventory-api-00rj.onrender.com/outward_listUpdate/${productId}`, updatedStockDelete);
 
                     console.log('Update successful');
                 } else {
                     console.log('No data found for the given id.');
                 }
 
-                await axios.delete(`http://localhost:3008/inwarddelete/${id}`);
+                await axios.delete(`https://inventory-api-00rj.onrender.com/inwarddelete/${id}`);
 
 
             } else {
@@ -355,7 +355,7 @@ const Inward = React.forwardRef((props, ref) => {
     const handleSortBtn = async () => {
         if (sortDatas.startDate && sortDatas.endDate || sortDatas.productName) {
             try {
-                const response = await axios.get('http://localhost:3008/inwardSorting', { params: sortDatas });
+                const response = await axios.get('https://inventory-api-00rj.onrender.com/inwardSorting', { params: sortDatas });
                 setDataRecived(response.data);
                 setSortBtn(prevSortBtn => !prevSortBtn);
                 setSortBtnCol(false)

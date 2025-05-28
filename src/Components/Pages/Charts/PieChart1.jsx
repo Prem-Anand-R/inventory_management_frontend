@@ -12,14 +12,14 @@ function PieChart1() {
 
   useEffect(()=>{   
 
-      axios.get('http://localhost:3008/inwardSum')
+      axios.get('https://inventory-api-00rj.onrender.com/inwardSum')
     .then((res)=>{
       setPriceInward(parseInt(res.data[0].price));
        
     })
     .catch((err)=>console.log(err));
 
-    axios.get('http://localhost:3008/outwardSum')
+    axios.get('https://inventory-api-00rj.onrender.com/outwardSum')
     .then((res)=>{
       setPriceOutward(parseInt(res.data[0].price));
        

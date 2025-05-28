@@ -22,7 +22,7 @@ function LoginPage({setLoggedIn}) {
         e.preventDefault();
 		
         try {
-            const response = await axios.post('http://localhost:3008/login', logindata);
+            const response = await axios.post('https://inventory-api-00rj.onrender.com/login', logindata);
       
             if (response.data.success) {
               setMessage(response.data.message);

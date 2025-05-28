@@ -19,20 +19,20 @@ function Dashboard({setLoggedIn}) {
     const navigate = useNavigate();
     
     useEffect(() => {
-        axios.get('http://localhost:3008/totalProductSum')
+        axios.get('https://inventory-api-00rj.onrender.com/totalProductSum')
             .then((res) => {
                 setTotalStock(res.data[0].total);
             })
             .catch((err) => console.log(err));
 
-        axios.get('http://localhost:3008/inwardSum')
+        axios.get('https://inventory-api-00rj.onrender.com/inwardSum')
             .then((res) => {
                 setTotalInward(res.data[0].total);
                
             })
             .catch((err) => console.log(err));
 
-        axios.get('http://localhost:3008/outwardSum')
+        axios.get('https://inventory-api-00rj.onrender.com/outwardSum')
             .then((res) => {
                 setTotalOutward(res.data[0].total);
                

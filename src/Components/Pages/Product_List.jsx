@@ -38,7 +38,7 @@ function Product_List() {
     }, []);
 
     function fetData(){
-        axios.get('http://localhost:3008/productList')
+        axios.get('https://inventory-api-00rj.onrender.com/productList')
         .then((res) => {
             setProductListData(res.data);
             setProductListValues(res.data.map((data) => {
@@ -53,7 +53,7 @@ function Product_List() {
         e.preventDefault();
         const productExists = productListValues.find((data) => data === productList.productName);    
         if (!productExists) {         
-            axios.post('http://localhost:3008/productListUp', productList)
+            axios.post('https://inventory-api-00rj.onrender.com/productListUp', productList)
                 .then(res => {
                     setProductList({
                         productName: '',
@@ -105,7 +105,7 @@ function Product_List() {
                 theme: "light",
                 });
         }else{
-        axios.put('http://localhost:3008/listupdate/' + getProductId, getProductList)
+        axios.put('https://inventory-api-00rj.onrender.com/listupdate/' + getProductId, getProductList)
             .then(res => {
                 setFormTable('Add');
                 setProductList({
@@ -217,7 +217,7 @@ function Product_List() {
    
 
     const updateList = (id) => {
-        fetch('http://localhost:3008/productList1/' + id)
+        fetch('https://inventory-api-00rj.onrender.com/productList1/' + id)
             .then((res) => res.json())
             .then(data => {
                 setGetProductList({

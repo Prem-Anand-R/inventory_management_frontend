@@ -49,13 +49,13 @@ const Outward = React.forwardRef((props, ref) => {
     }, []);
 
     function fetData() {
-        axios.get('http://localhost:3008/outward')
+        axios.get('https://inventory-api-00rj.onrender.com/outward')
             .then((res) => {
                 setOutwardData(res.data);
             })
             .catch(err => console.log(err));
 
-        axios.get('http://localhost:3008/productList')
+        axios.get('https://inventory-api-00rj.onrender.com/productList')
             .then((res) => {
                 setProductListData(res.data)
             })
@@ -68,7 +68,7 @@ const Outward = React.forwardRef((props, ref) => {
 
     useMemo(async () => {
        try{
-        const response = await axios.get(`http://localhost:3008/productList1/${outwardList.product_id}`);
+        const response = await axios.get(`https://inventory-api-00rj.onrender.com/productList1/${outwardList.product_id}`);
         SetAvailableShow(response.data[0]);
         // setPriceCalc(availableStockShow.price * )
        }catch(error){
@@ -81,11 +81,11 @@ const Outward = React.forwardRef((props, ref) => {
         e.preventDefault();
 
         try {
-            const response = await axios.get(`http://localhost:3008/productList1/${outwardList.product_id}`);
+            const response = await axios.get(`https://inventory-api-00rj.onrender.com/productList1/${outwardList.product_id}`);
             const dataSets = response.data;
 
             if (outwardList.numProduct < dataSets[0].stocks) {
-                await axios.post('http://localhost:3008/outwardListUp', outwardList);
+                await axios.post('https://inventory-api-00rj.onrender.com/outwardListUp', outwardList);
                 setOutwardList({
                     product_id: '',
                     date: '',
@@ -96,7 +96,7 @@ const Outward = React.forwardRef((props, ref) => {
 
                 toast.success('Product Added successfully!');
 
-                await axios.put(`http://localhost:3008/outward_listUpdate/${outwardList.product_id}`, outwardList);
+                await axios.put(`https://inventory-api-00rj.onrender.com/outward_listUpdate/${outwardList.product_id}`, outwardList);
 
             } else {
                 toast.error("Product Count is greater than Stock Availablity");
@@ -112,7 +112,7 @@ const Outward = React.forwardRef((props, ref) => {
     const handleProductUpdate = async (event) => {
         try {
             event.preventDefault();
-            const outwardListResponse = await fetch(`http://localhost:3008/outwardList1/${ids.id}`);
+            const outwardListResponse = await fetch(`https://inventory-api-00rj.onrender.com/outwardList1/${ids.id}`);
             const outwardListDataAxios = await outwardListResponse.json();
 
             if (
@@ -122,7 +122,7 @@ const Outward = React.forwardRef((props, ref) => {
             ) {
                 toast.info('No changes detected');
             } else {
-                await axios.put(`http://localhost:3008/outwardlist/${getProductId}`, getProductList);
+                await axios.put(`https://inventory-api-00rj.onrender.com/outwardlist/${getProductId}`, getProductList);
 
                 setFormTable('Add');
                 setOutwardList({ date: '', productName: '', productPrice: '', numProduct: '' });
@@ -133,11 +133,11 @@ const Outward = React.forwardRef((props, ref) => {
 
                 if (outwardListDataAxios[0]?.num_product > getProductList.numProduct) {
                     const value = outwardListDataAxios[0]?.num_product - getProductList.numProduct;
-                    await axios.put(`http://localhost:3008/inward_listUpdate/${ids.productId}`, { numProduct: value });
+                    await axios.put(`https://inventory-api-00rj.onrender.com/inward_listUpdate/${ids.productId}`, { numProduct: value });
 
                 } else if (outwardListDataAxios[0]?.num_product < getProductList.numProduct) {
                     const value = getProductList.numProduct - outwardListDataAxios[0]?.num_product;
-                    await axios.put(`http://localhost:3008/outward_listUpdate/${ids.productId}`, { numProduct: value });
+                    await axios.put(`https://inventory-api-00rj.onrender.com/outward_listUpdate/${ids.productId}`, { numProduct: value });
 
                 } else {
                     window.alert('The number of products is equal');
@@ -296,7 +296,7 @@ const Outward = React.forwardRef((props, ref) => {
 
     const updateList = async (id, productId) => {
         try {
-            const response = await fetch(`http://localhost:3008/outwardList1/${id}`);
+            const response = await fetch(`https://inventory-api-00rj.onrender.com/outwardList1/${id}`);
             const data = await response.json();
 
             if (data && data.length > 0) {
@@ -337,19 +337,19 @@ const Outward = React.forwardRef((props, ref) => {
                     icon: "success",
                 });
 
-                const response = await fetch(`http://localhost:3008/outwardList1/${id}`);
+                const response = await fetch(`https://inventory-api-00rj.onrender.com/outwardList1/${id}`);
                 const outwardListData = await response.json();
 
                 if (outwardListData && outwardListData.length > 0) {
                     const updatedStockDelete = { numProduct: outwardListData[0].num_product };
 
-                    await axios.put(`http://localhost:3008/inward_listUpdate/${productId}`, updatedStockDelete);
+                    await axios.put(`https://inventory-api-00rj.onrender.com/inward_listUpdate/${productId}`, updatedStockDelete);
 
                     console.log('Update successful');
                 } else {
                     console.log('No data found for the given id.');
                 }
-                axios.delete('http://localhost:3008/outwarddelete/' + id)
+                axios.delete('https://inventory-api-00rj.onrender.com/outwarddelete/' + id)
                     .then(res => {
                         console.log(res);
                         toast.success('Deleted Successfully');
@@ -389,7 +389,7 @@ const Outward = React.forwardRef((props, ref) => {
     const handleSortBtn = async () => {
         if (sortDatas.startDate && sortDatas.endDate || sortDatas.productName) {
             try {
-                const response = await axios.get('http://localhost:3008/outwardSorting', { params: sortDatas });
+                const response = await axios.get('https://inventory-api-00rj.onrender.com/outwardSorting', { params: sortDatas });
                 setDataRecived(response.data);
                 setSortBtn(prevSortBtn => !prevSortBtn);
                 setSortBtnCol(false)

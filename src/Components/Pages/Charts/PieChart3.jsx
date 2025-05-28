@@ -10,14 +10,14 @@ function PieChart3() {
 
   useEffect(()=>{   
 
-    axios.get('http://localhost:3008/totalProductSum')
+    axios.get('https://inventory-api-00rj.onrender.com/totalProductSum')
         .then((res)=>{
           setTotalStocks(res.data[0].total);
           
         })
         .catch((err)=>console.log(err));
 
-    axios.get('http://localhost:3008/productList')
+    axios.get('https://inventory-api-00rj.onrender.com/productList')
   .then((res)=>{
     setProductList(res.data.map((data)=>{
       return data.product_name
