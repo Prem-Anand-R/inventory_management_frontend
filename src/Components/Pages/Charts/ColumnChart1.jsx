@@ -22,7 +22,7 @@ function ColumnChart1() {
 
 
     useEffect(() => {
-        axios.get('http://localhost:3008/outwardDate')
+        axios.get('https://inventory-api-00rj.onrender.com/outwardDate')
             .then((res) => {
                 setTotalOutward(() => {
                     var dates = [];
@@ -38,7 +38,7 @@ function ColumnChart1() {
         const fetchData = async () => {
             const promises = totalOutward.map(async (data) => {
                 const month = new Date(data).getMonth() + 1;
-                const response = await fetch('http://localhost:3008/outwardDate1/' + month);
+                const response = await fetch('https://inventory-api-00rj.onrender.com/outwardDate1/' + month);
                 const result = await response.json();
                 return { month, sum: parseInt(result[0].sum) };
             });
