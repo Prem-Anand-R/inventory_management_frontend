@@ -69,7 +69,7 @@ function Product_List() {
                     console.log(res);
                 })
                 .catch(err => console.log(err));
-                 setShouldFetch(false); // reset trigger
+                 fetData()
 
                 toast.success('Product Added successfully!', {
                     position: "top-right",
@@ -123,7 +123,7 @@ function Product_List() {
                 console.log(res)
             })
             .catch(err => console.log(err))
-             setShouldFetch(false); // reset trigger
+            fetData()
             toast.success('Update Successfully', {
                 position: "top-right",
                 autoClose: 5000,
