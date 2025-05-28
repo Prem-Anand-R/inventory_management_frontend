@@ -22,28 +22,34 @@ function Product_List() {
     });
     const [productListValues, setProductListValues] = useState([]);
     const [updateCheckProduct, setUpdateCheckProduct] = useState([]);
+    const [shouldFetch, setShouldFetch] = useState(true); // trigger
+
+    // useEffect(() => {
+    //     fetData();
+    //     const setTime=()=>{
+    //         fetData();
+
+    //     }
+    //    const time= setInterval(setTime,500);
+    //    return ()=> {
+    //     fetData();
+    //     clearInterval(time);
+    // }
+
+    // }, []);
 
     useEffect(() => {
-        fetData();
-        const setTime=()=>{
-            fetData();
-
-        }
-       const time= setInterval(setTime,500);
-       return ()=> {
-        fetData();
-        clearInterval(time);
+    if (shouldFetch) {
+      fetData();
     }
-
-    }, []);
+  }, [shouldFetch]);
 
     function fetData(){
         axios.get('https://inventory-api-00rj.onrender.com/productList')
         .then((res) => {
             setProductListData(res.data);
-            setProductListValues(res.data.map((data) => {
-                return data.product_name;
-            }))
+           setProductListValues(res.data.map((data) => data.product_name));
+        setShouldFetch(false); // reset trigger
         })
         .catch(err => console.log(err));
     }
